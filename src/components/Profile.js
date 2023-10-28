@@ -6,9 +6,11 @@ function Profile() {
   const [userName, setUserName] = useState('Username'); 
   const [userEmail, setUserEmail] = useState('example@gmail.com');
   const [userPhone, setUserPhone] = useState('+7 (777) 77 7777');
+  const [sername, setSername] = useState('Sername');
   const [tempName, setTempName] = useState(userName); 
   const [tempEmail, setTempEmail] = useState(userEmail); 
   const [tempPhone, setTempPhone] = useState(userPhone); 
+  const [tempSername, setTempSername] = useState(sername);
   const [isEditing, setIsEditing] = useState(false);
  
 
@@ -41,17 +43,25 @@ function Profile() {
     }
   };
 
+  const handleSernameChange = (e) => {
+    if (isEditing) {
+      setTempSername(e.target.value);
+    }
+  };
+
   const handleEditClick = () => {
     if (isEditing) {
      
       setUserName(tempName);
       setUserEmail(tempEmail);
       setUserPhone(tempPhone);
+      setSername(tempSername);
     } else {
       
       setTempName(userName);
       setTempEmail(userEmail);
       setTempPhone(userPhone);
+      setSername(sername);
     }
     setIsEditing(!isEditing);
   };
@@ -77,12 +87,26 @@ function Profile() {
               <input
                 type="text"
                 id="userName"
-                value={tempName}
+                placeholder={tempName}
                 onChange={handleNameChange}
                 className='userName'
               />
             ) : (
               <span>{userName}</span>
+            )}
+          </div>
+          <div className="user-sername">
+            <label htmlFor="sername">Sername:< br /></label>
+            {isEditing ? (
+              <input
+                type="text"
+                id="sername"
+                placeholder={sername}
+                onChange={handleSernameChange}
+                className='userName'
+              />
+            ) : (
+              <span>{sername}</span>
             )}
           </div>
           <div className="user-email">
@@ -91,7 +115,7 @@ function Profile() {
               <input
                 type="email"
                 id="userEmail"
-                value={tempEmail}
+                placeholder={tempEmail}
                 onChange={handleEmailChange}
               />
             ) : (
@@ -104,7 +128,7 @@ function Profile() {
               <input
                 type="tel"
                 id="userPhone"
-                value={tempPhone}
+                placeholder={tempPhone}
                 onChange={handlePhoneChange}
               />
             ) : (
